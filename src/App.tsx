@@ -26,6 +26,7 @@ const API_ENDPOINT = 'https://vibe-proxy-gqv4.onrender.com/v1/chat/completions';
 const API_MODEL = 'class-chat-model';
 const API_BEARER_TOKEN = 'sk-vibe-summer-2026';
 const PAGE_SIZE = 900;
+const MIN_STORY_WORDS = 8000;
 
 const genres: Array<{ value: Genre; label: string }> = [
   { value: 'fantasy', label: 'Fantasy' },
@@ -41,19 +42,19 @@ const agents = [
     name: 'Story Planner',
     purpose: 'Turn the plot idea into a strong story outline and scene beats.',
     instruction:
-      'You are a story planning agent. Create a short, vivid outline for a story based on the genre and plot idea. Keep it structured and scene-oriented.',
+      'You are a story planning agent. Build a scene-by-scene outline that is purely and strictly in the requested genre. Do not blend in any other genre conventions.',
   },
   {
     name: 'Story Writer',
     purpose: 'Draft the actual story using the outline as the backbone.',
     instruction:
-      'You are a story writing agent. Turn the outline into a complete, compelling story draft that matches the requested genre and plot.',
+      `You are a story writing agent. Turn the outline into a complete long-form story draft. Keep it purely in the requested genre with no cross-genre drift. Target at least ${MIN_STORY_WORDS} words.`,
   },
   {
     name: 'Story Critic',
     purpose: 'Polish the story and deliver the final version.',
     instruction:
-      'You are a story critique agent. Improve the draft for pacing, clarity, atmosphere, and emotional impact, then return the final polished story.',
+      `You are a story critique agent. Improve pacing, clarity, atmosphere, and emotional impact while keeping the story purely in the requested genre. Return a polished final story with at least ${MIN_STORY_WORDS} words.`,
   },
 ];
 
@@ -90,6 +91,11 @@ async function callChatCompletion({
 
 function normalizeContent(value: string | undefined) {
   return value?.trim() || 'No story content returned by the model.';
+}
+
+function countWords(text: string) {
+  const tokens = text.trim().split(/\s+/).filter(Boolean);
+  return tokens.length;
 }
 
 function splitIntoPages(text: string, maxChars = PAGE_SIZE) {
@@ -176,7 +182,12 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: `Agent role: ${agent.name}\nInstruction: ${agent.instruction}\nGenre: ${genre}\nPlot: ${plot.trim()}\n\nPrevious agent output:\n${previousOutput}`,
+              content:
+                `Agent role: ${agent.name}\nInstruction: ${agent.instruction}\n` +
+                `Hard rules:\n- Stay purely in genre: ${genre}\n- No genre mixing\n` +
+                `- Keep strong genre tone in every scene\n` +
+                `- Final story must be at least ${MIN_STORY_WORDS} words\n\n` +
+                `Genre: ${genre}\nPlot: ${plot.trim()}\n\nPrevious agent output:\n${previousOutput}`,
             },
           ],
         });
@@ -191,6 +202,28 @@ export default function App() {
         nextRuns.push(run);
         previousOutput = output;
         setRuns([...nextRuns]);
+      }
+
+      if (countWords(previousOutput) < MIN_STORY_WORDS) {
+        setStatus('Extending story length...');
+        const expansion = await callChatCompletion({
+          endpoint: API_ENDPOINT,
+          token: API_BEARER_TOKEN,
+          model: API_MODEL,
+          messages: [
+            {
+              role: 'user',
+              content:
+                `Expand and continue this story to at least ${MIN_STORY_WORDS} words total.\n` +
+                `Hard rules:\n- Keep it purely in genre: ${genre}\n- No genre blending\n` +
+                `- Preserve existing characters, plot continuity, and tone\n\n` +
+                `Current story:\n${previousOutput}`,
+            },
+          ],
+        });
+
+        const expandedStory = normalizeContent(expansion.choices?.[0]?.message?.content);
+        previousOutput = expandedStory;
       }
 
       setFinalAnswer(previousOutput);
