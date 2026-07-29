@@ -37,6 +37,33 @@ const genres: Array<{ value: Genre; label: string }> = [
   { value: 'adventure', label: 'Adventure' },
 ];
 
+const randomStorySeeds: Array<{ genre: Genre; plot: string }> = [
+  {
+    genre: 'fantasy',
+    plot: 'A lighthouse keeper discovers the sea answers in riddles every new moon, each one predicting a village secret.',
+  },
+  {
+    genre: 'science-fiction',
+    plot: 'On a generation ship, a maintenance coder finds an impossible signal that appears to be sent by her own future self.',
+  },
+  {
+    genre: 'romance',
+    plot: 'Two rival bookstore owners keep exchanging anonymous recommendation notes and slowly fall in love without realizing who the other is.',
+  },
+  {
+    genre: 'thriller',
+    plot: 'A forensic accountant follows a tiny accounting error that leads to a hidden syndicate and a list with her name on it.',
+  },
+  {
+    genre: 'mystery',
+    plot: 'A watchmaker is found dead in a locked shop, and every clock in town stops at a different minute tied to an old case.',
+  },
+  {
+    genre: 'adventure',
+    plot: 'A courier carrying a sealed map is chased across deserts, cliffs, and floating ruins by three factions seeking a lost sky city.',
+  },
+];
+
 const agents = [
   {
     name: 'Story Planner',
@@ -96,6 +123,19 @@ function normalizeContent(value: string | undefined) {
 function countWords(text: string) {
   const tokens = text.trim().split(/\s+/).filter(Boolean);
   return tokens.length;
+}
+
+function ensureChapterOneStart(text: string) {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return trimmed;
+  }
+
+  if (/^(#\s*)?chapter\s*(one|1)\b/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  return `Chapter One\n\n${trimmed}`;
 }
 
 function splitIntoPages(text: string, maxChars = PAGE_SIZE) {
@@ -160,6 +200,17 @@ export default function App() {
 
   const canRun = plot.trim().length > 0;
 
+  function handleRandomStory() {
+    const seed = randomStorySeeds[Math.floor(Math.random() * randomStorySeeds.length)];
+    setGenre(seed.genre);
+    setPlot(seed.plot);
+    setRuns([]);
+    setFinalAnswer('');
+    setCurrentPage(0);
+    setStatus('Random story idea loaded.');
+    setError('');
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
@@ -186,6 +237,7 @@ export default function App() {
                 `Agent role: ${agent.name}\nInstruction: ${agent.instruction}\n` +
                 `Hard rules:\n- Stay purely in genre: ${genre}\n- No genre mixing\n` +
                 `- Keep strong genre tone in every scene\n` +
+                `- Story must start with the exact heading: Chapter One\n` +
                 `- Final story must be at least ${MIN_STORY_WORDS} words\n\n` +
                 `Genre: ${genre}\nPlot: ${plot.trim()}\n\nPrevious agent output:\n${previousOutput}`,
             },
@@ -216,6 +268,7 @@ export default function App() {
               content:
                 `Expand and continue this story to at least ${MIN_STORY_WORDS} words total.\n` +
                 `Hard rules:\n- Keep it purely in genre: ${genre}\n- No genre blending\n` +
+                `- Start the story with the exact heading: Chapter One\n` +
                 `- Preserve existing characters, plot continuity, and tone\n\n` +
                 `Current story:\n${previousOutput}`,
             },
@@ -226,7 +279,7 @@ export default function App() {
         previousOutput = expandedStory;
       }
 
-      setFinalAnswer(previousOutput);
+      setFinalAnswer(ensureChapterOneStart(previousOutput));
       setStatus('Story complete.');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
@@ -350,6 +403,9 @@ export default function App() {
           </label>
           <button type="submit" disabled={!canRun || loading}>
             {loading ? 'Writing story...' : 'Generate story'}
+          </button>
+          <button type="button" onClick={handleRandomStory} disabled={loading}>
+            Random story
           </button>
           {error ? <p className="error">{error}</p> : null}
         </form>
