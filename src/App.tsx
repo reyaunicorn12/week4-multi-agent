@@ -72,62 +72,62 @@ const randomStorySeeds: Array<{ genre: Genre; plot: string }> = [
 const genreStoryArt: Record<Genre, StoryArt[]> = {
   fantasy: [
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23fff5d9'/><circle cx='170' cy='120' r='70' fill='%23ffd43b'/><path d='M0 380 Q190 290 380 360 T1000 340 V560 H0 Z' fill='%2374c0fc'/><path d='M170 330 L260 170 L350 330 Z' fill='%23ae3ec9'/><rect x='230' y='300' width='60' height='90' fill='%235c2d91'/></svg>",
-      caption: 'A bright enchanted hill welcomes the journey.',
+      src: 'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1400&q=80',
+      caption: 'An enchanted forest path lit by golden light.',
     },
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23e6fcf5'/><rect x='130' y='140' width='740' height='290' rx='26' fill='%2338d9a9'/><circle cx='290' cy='280' r='70' fill='%2387e8de'/><circle cx='710' cy='280' r='70' fill='%2387e8de'/><path d='M350 280 Q500 200 650 280' stroke='%23ffffff' stroke-width='12' fill='none'/></svg>",
-      caption: 'A friendly bridge leads to a magical castle.',
+      src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A misty mountain kingdom beyond the clouds.',
     },
   ],
   'science-fiction': [
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23e7f5ff'/><circle cx='820' cy='120' r='64' fill='%2374c0fc'/><rect x='150' y='250' width='700' height='170' rx='22' fill='%231977d2'/><rect x='220' y='290' width='150' height='80' rx='14' fill='%23a5d8ff'/><rect x='420' y='290' width='150' height='80' rx='14' fill='%23a5d8ff'/><rect x='620' y='290' width='150' height='80' rx='14' fill='%23a5d8ff'/></svg>",
-      caption: 'A colorful spaceship glides through calm skies.',
+      src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A futuristic station floating above Earth.',
     },
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23f3f0ff'/><rect x='130' y='120' width='740' height='320' rx='28' fill='%235f3dc4'/><circle cx='270' cy='260' r='86' fill='%23a5d8ff'/><circle cx='500' cy='260' r='86' fill='%23c0eb75'/><circle cx='730' cy='260' r='86' fill='%23ffd43b'/></svg>",
-      caption: 'The crew explores a planet garden full of wonder.',
+      src: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A star-filled sky over a distant world.',
     },
   ],
   romance: [
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23fff0f6'/><rect x='150' y='180' width='700' height='250' rx='26' fill='%23faa2c1'/><rect x='210' y='230' width='240' height='150' rx='18' fill='%23ffffff'/><rect x='550' y='230' width='240' height='150' rx='18' fill='%23ffffff'/><circle cx='500' cy='300' r='36' fill='%23f06595'/></svg>",
-      caption: 'Two friends share notes and smiles at sunset.',
+      src: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A warm city sunset perfect for heartfelt moments.',
     },
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23fff9db'/><path d='M0 420 Q220 330 420 390 T1000 370 V560 H0 Z' fill='%23ffd43b'/><rect x='330' y='170' width='340' height='200' rx='22' fill='%23ffec99'/><circle cx='430' cy='270' r='40' fill='%23fab005'/><circle cx='570' cy='270' r='40' fill='%23fab005'/></svg>",
-      caption: 'Kindness and teamwork make the day brighter.',
+      src: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A cozy lantern-lit street filled with charm.',
     },
   ],
   thriller: [
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23fff3bf'/><rect x='140' y='120' width='720' height='320' rx='30' fill='%23fcc419'/><rect x='220' y='200' width='560' height='160' rx='18' fill='%23ffffff'/><circle cx='500' cy='280' r='45' fill='%231977d2'/></svg>",
-      caption: 'A puzzle board reveals the next clever clue.',
+      src: 'https://images.unsplash.com/photo-1526289034009-0240ddb68ce3?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A shadowy city alley where clues hide in plain sight.',
     },
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23e7f5ff'/><path d='M100 420 L280 190 L460 420 Z' fill='%2374c0fc'/><path d='M420 420 L620 160 L860 420 Z' fill='%234dabf7'/><circle cx='760' cy='110' r='48' fill='%23ffd43b'/></svg>",
-      caption: 'The team races through a bright obstacle trail.',
+      src: 'https://images.unsplash.com/photo-1473959383414-a3db5f6e8f0f?auto=format&fit=crop&w=1400&q=80',
+      caption: 'Night rain and neon lights raise the tension.',
     },
   ],
   mystery: [
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23f8f9fa'/><circle cx='220' cy='210' r='110' fill='%23ced4da'/><circle cx='220' cy='210' r='70' fill='%23ffffff'/><line x1='220' y1='210' x2='220' y2='155' stroke='%23495057' stroke-width='8'/><line x1='220' y1='210' x2='270' y2='220' stroke='%23495057' stroke-width='8'/><rect x='400' y='130' width='430' height='290' rx='24' fill='%23dee2e6'/></svg>",
-      caption: 'A giant clock hints at a hidden secret.',
+      src: 'https://images.unsplash.com/photo-1501139083538-0139583c060f?auto=format&fit=crop&w=1400&q=80',
+      caption: 'An old library full of whispers and secrets.',
     },
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23f1f3f5'/><rect x='170' y='150' width='660' height='270' rx='28' fill='%23adb5bd'/><rect x='230' y='210' width='250' height='150' rx='16' fill='%23ffffff'/><rect x='520' y='210' width='250' height='150' rx='16' fill='%23ffffff'/></svg>",
-      caption: 'Young detectives compare clues and solve together.',
+      src: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80',
+      caption: 'Fog over quiet streets where mysteries unfold.',
     },
   ],
   adventure: [
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23fff4e6'/><path d='M0 430 Q210 340 410 400 T1000 390 V560 H0 Z' fill='%23ffa94d'/><circle cx='820' cy='120' r='60' fill='%23ff922b'/><path d='M240 360 L370 220 L500 360 Z' fill='%23f76707'/></svg>",
-      caption: 'A sandy trail leads toward a golden horizon.',
+      src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80',
+      caption: 'Towering mountains invite a brave expedition.',
     },
     {
-      src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='560'><rect width='100%25' height='100%25' fill='%23e3fafc'/><path d='M0 420 Q220 320 430 390 T1000 370 V560 H0 Z' fill='%2322b8cf'/><rect x='300' y='200' width='420' height='180' rx='20' fill='%2399e9f2'/><circle cx='510' cy='285' r='48' fill='%2315aabf'/></svg>",
-      caption: 'A sky bridge appears above sparkling waters.',
+      src: 'https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1400&q=80',
+      caption: 'A winding path into forests and hidden valleys.',
     },
   ],
 };
